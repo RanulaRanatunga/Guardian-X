@@ -17,30 +17,29 @@ root.minsize(1270,720)
 root.maxsize(1270,720)
 root.configure(bg="#131314")
 
-#Define color constants
+
 backgroundColor = "#131314"
 not_active_color = "#606060"
 active_color = "#DCDCDD"
 box_background = "#26262C"
 
-#Handle the hover effect for navigation buttons
+
 def hoverMenuButtons(event,i):
     global buttonsMain
-    relys = [0.4, 0.45, 0.50, 0.55, 0.595, 0.645, 0.695, 0.74, 0.785, 0.83, 0.875]
+    relys = [0.4, 0.45, 0.50, 0.55, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
     buttonsMain[i].config(font=("Lucida Sans",16,"bold"),bg=backgroundColor, fg="#DEDEE0", activeforeground="#5A5A5B")
     buttonsMain[i].place(relx=0.07, rely=relys[i])
 
-#Handle the unhover effect for navigation buttons
 def leaveMenuButtons(event, i):
     global buttonsMain
-    relys = [0.4, 0.45, 0.50, 0.55, 0.595, 0.645, 0.695, 0.74, 0.785, 0.83, 0.875]
-    if i == 4:
+    relys = [0.4, 0.45, 0.50, 0.55, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
+    if i == 5:
         buttonsMain[i].config(font=("Lucida Sans", 12, "bold"), fg=active_color, bg=backgroundColor)
     else:
         buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
     buttonsMain[i].place(relx=0.07, rely=relys[i])
 
-#Switch to the next page by importing the relevant module
+
 def nextPage(i):
     if i == 0 and thisPage != 1:
         root.destroy()
@@ -82,7 +81,7 @@ def Private_Form():
     new_form.geometry("600x250")
     new_form.configure(bg="lightblue")
 
-    #Create a frame for the buttons
+ 
     button_frame = Frame(new_form, bg="darkblue")
     button_frame.pack(expand=True)
 
@@ -94,7 +93,7 @@ def Private_Form():
                                font=("Helvetica", 12), width=10)
     deactivate_button.grid(row=0, column=1, padx=20, pady=10)
 
-#Functions for button actions
+
 def activate_action1():
     messagebox.showinfo("Activation", "The Private Network Has Been Enabled!")
 
@@ -103,7 +102,6 @@ def deactivate_action1():
 
 def enable_private_network():
     try:
-        #Enable the Private Network interface (replace "Private Network" with your actual interface name)
         subprocess.run('netsh interface set interface "Private Network" enabled', shell=True, check=True)
         messagebox.showinfo("Activation", "The Private Network Has Been Enabled!")
     except subprocess.CalledProcessError as e:
@@ -198,25 +196,25 @@ buttonsMain[0].place(relx=0.07, rely=0.4)
 # buttonsMain[3].place(relx=0.078, rely=0.55)
 
 buttonsMain[4] = Button(root, text="License", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(4))
-buttonsMain[4].place(relx=0.07, rely=0.595)
+buttonsMain[4].place(relx=0.07, rely=0.45)
 
 buttonsMain[5] = Button(root, text="FireWall", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(5))
-buttonsMain[5].place(relx=0.07, rely=0.645)
+buttonsMain[5].place(relx=0.07, rely=0.5)
 
 buttonsMain[6] = Button(root, text="Scanning", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(6))
-buttonsMain[6].place(relx=0.07, rely=0.695)
+buttonsMain[6].place(relx=0.07, rely=0.55)
 
 buttonsMain[7] = Button(root, text="Threat Detection", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(7))
-buttonsMain[7].place(relx=0.07, rely=0.74)
+buttonsMain[7].place(relx=0.07, rely=0.6)
 
 buttonsMain[8] = Button(root, text="Data Security", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(8))
-buttonsMain[8].place(relx=0.07, rely=0.785)
+buttonsMain[8].place(relx=0.07, rely=0.65)
 
 buttonsMain[9] = Button(root, text="Parental Control", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(9))
-buttonsMain[9].place(relx=0.07, rely=0.83)
+buttonsMain[9].place(relx=0.07, rely=0.7)
 
 buttonsMain[10] = Button(root, text="Quarantine", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(10))
-buttonsMain[10].place(relx=0.07, rely=0.875)
+buttonsMain[10].place(relx=0.07, rely=0.75)
 
 
 buttonsMain[0].bind("<Enter>", lambda event, i=0: hoverMenuButtons(event, i))

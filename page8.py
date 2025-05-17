@@ -1,16 +1,12 @@
-#import necessary libraries
-from tkinter import *    #building the GUI
+# filepath: c:\Users\Ranula\Documents\app\2232322\page8.py
+from tkinter import *
 import tkinter as tk
-from tkinter import ttk, font, messagebox, scrolledtext     #Additional GUI components
-from PIL import  ImageTk,Image  #handling images
-import random   #For simulating random outcomes
-import time     #For sleep functions in simulations
-import threading        #For real-time operations in the background
+from tkinter import ttk, font, messagebox, scrolledtext
+from PIL import  ImageTk,Image
 
-#Initialize page variable
 thisPage = 8
 
-#Create the main application window
+
 root = Tk()
 root.title("GuardianX Prototype > AI_App_Control")
 root.geometry("1270x720")
@@ -18,80 +14,30 @@ root.minsize(1270,720)
 root.maxsize(1270,720)
 root.configure(bg="#131314")
 
-#Define color constants
+
 backgroundColor = "#131314"
 not_active_color = "#606060"
 active_color = "#DCDCDD"
 box_background = "#26262C"
 
-#Handle the hover effect for navigation buttons
+
 def hoverMenuButtons(event,i):
     global buttonsMain
-    # All navigation buttons left-aligned at relx=0.07
+    relys = [0.4, 0.45, 0.50, 0.55, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
     buttonsMain[i].config(font=("Lucida Sans",16,"bold"),bg=backgroundColor, fg="#DEDEE0", activeforeground="#5A5A5B")
-    if i == 0:
-        buttonsMain[i].place(relx=0.07, rely=0.4)
-    elif i == 1:
-        buttonsMain[i].place(relx=0.07, rely=0.45)
-    elif i == 2:
-        buttonsMain[i].place(relx=0.07, rely=0.50)
-    elif i == 3:
-        buttonsMain[i].place(relx=0.07, rely=0.55)
-    elif i == 4:
-        buttonsMain[i].place(relx=0.07, rely=0.595)
-    elif i == 5:
-        buttonsMain[i].place(relx=0.07, rely=0.645)
-    elif i == 6:
-        buttonsMain[i].place(relx=0.07, rely=0.695)
-    elif i == 7:
-        buttonsMain[i].place(relx=0.07, rely=0.74)
-    elif i == 8:
-        buttonsMain[i].place(relx=0.07, rely=0.785)
-    elif i == 9:
-        buttonsMain[i].place(relx=0.07, rely=0.83)
-    elif i == 10:
-        buttonsMain[i].place(relx=0.07, rely=0.875)
+    buttonsMain[i].place(relx=0.07, rely=relys[i])
 
-#Handle the unhover effect for navigation buttons
+
 def leaveMenuButtons(event, i):
     global buttonsMain
-    root.after(50)
-    # All navigation buttons left-aligned at relx=0.07
-    if i == 0:
+    relys = [0.4, 0.45, 0.50, 0.55, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
+    if i == 8:
         buttonsMain[i].config(font=("Lucida Sans", 12, "bold"), fg=active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.4)
-    elif i == 1:
+    else:
         buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.45)
-    elif i == 2:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.50)
-    elif i == 3:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.55)
-    elif i == 4:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.595)
-    elif i == 5:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.645)
-    elif i == 6:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.695)
-    elif i == 7:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.74)
-    elif i == 8:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.785)
-    elif i == 9:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.83)
-    elif i == 10:
-        buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
-        buttonsMain[i].place(relx=0.07, rely=0.875)
+    buttonsMain[i].place(relx=0.07, rely=relys[i])
 
-#Switch to the next page by importing the relevant module
+
 def nextPage(i):
     if i == 0 and thisPage != 1:
         root.destroy()
@@ -127,127 +73,60 @@ def nextPage(i):
         root.destroy()
         import page11
 
-#Main Antivirus Application Class
+
 class AntivirusApp:
-    def __init__(self, root):
-        self.root = root
+    def __init__(self, master):
+        self.master = master
+        
+        # Create frames for sections
+        self.create_app_control_section()
 
-        #Create a menu bar with File and Help options
-        menubar = tk.Menu(self.root)
-        file_menu = tk.Menu(menubar, tearoff=0)
-        file_menu.add_command(label="Exit", command=self.root.quit)
-        menubar.add_cascade(label="File", menu=file_menu)
+    def create_app_control_section(self):
+        # App Control Section
+        frame = Frame(self.master, bg=backgroundColor, height=500, width=800)
+        frame.place(relx=0.35, rely=0.2)
+        
+        Label(frame, text="Application Control", font=("Lucida Sans", 18, "bold"), 
+              fg=active_color, bg=backgroundColor).grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 20))
+        
+        
+       
+        scan_btn = Button(frame, text="Scan for Applications", font=("Lucida Sans", 11),
+                        bg="#26252C", fg=active_color, padx=15, pady=5)
+        scan_btn.grid(row=8, column=0, columnspan=1, sticky="w", pady=15)
+        
+    
+        save_btn = Button(frame, text="Save Settings", font=("Lucida Sans", 11),
+                        bg="#26252C", fg=active_color, padx=15, pady=5)
+        save_btn.grid(row=8, column=1, columnspan=1, sticky="e", pady=15)
+        
+        self.log_area = scrolledtext.ScrolledText(frame, width=60, height=8, 
+                                                font=("Courier New", 10),
+                                                bg="#26252C", fg="#c0c0c0")
+        self.log_area.grid(row=9, column=0, columnspan=2, sticky="ew", pady=10)
+        self.log_area.insert(END, "Application Control Module Initialized.\n")
+        self.log_area.insert(END, "Monitoring 5 applications for suspicious activity.\n")
+        self.log_area.insert(END, "Last scan: Today at 14:30\n")
+        self.log_area.insert(END, "Status: Active and protecting your system\n")
 
-        help_menu = tk.Menu(menubar, tearoff=0)
-        help_menu.add_command(label="About", command=self.show_about)
-        menubar.add_cascade(label="Help", menu=help_menu)
+    def create_app_entry(self, app_name, description, default_state):
 
-        self.root.config(menu=menubar)
+        row = len(self.master.grid_slaves()) + 1
+        
+        
+        Label(self.master.winfo_children()[1], text=app_name, font=("Lucida Sans", 11, "bold"), 
+              fg=active_color, bg=backgroundColor).grid(row=row, column=0, sticky="w", pady=5)
+        
+    
+        Label(self.master.winfo_children()[1], text=description, font=("Lucida Sans", 10), 
+              fg="#a0a0a0", bg=backgroundColor).grid(row=row+1, column=0, sticky="w", padx=(20, 0))
+        
 
-        #Create a frame for main control buttons
-        button_frame = tk.Frame(self.root,bg="#131314")
-        button_frame.pack(pady=20)
-
-        #Define buttons for core functionalities
-        scan_button = tk.Button(button_frame, text="Scan", command=self.start_scan, width=25,height=2,bg="black",fg="white",font=("Helvetica", 11))
-        scan_button.grid(row=0, column=0, padx=10,pady=10)
-
-        update_button = tk.Button(button_frame, text="Update", command=self.update_virus_definitions, width=25,height=2,bg="black",fg="white",font=("Helvetica", 11))
-        update_button.grid(row=0, column=1, padx=10)
-
-        real_time_button = tk.Button(button_frame, text="Real-Time Protection", command=self.toggle_real_time_protection, width=25,height=2,bg="black",fg="white",font=("Helvetica", 11))
-        real_time_button.grid(row=1, column=0, padx=5, pady=10)
-
-        quarantine_button = tk.Button(button_frame, text="Quarantine", command=self.quarantine_files, width=25,height=2,bg="black",fg="white",font=("Helvetica", 11))
-        quarantine_button.grid(row=1, column=1, padx=5, pady=10)
-
-        settings_button = tk.Button(button_frame, text="Settings", command=self.open_settings, width=25,height=2,bg="black",fg="white",font=("Helvetica", 11))
-        settings_button.grid(row=2, padx=5, pady=10)
-
-        #Status label for AI operations
-        self.ai_status_label = tk.Label(self.root, text="AI Status: Idle",bg="#131314",fg="white", font=("Arial", 12))
-        self.ai_status_label.pack(pady=10)
-
-        #Scrolled text area for displaying logs
-        self.log_text = scrolledtext.ScrolledText(self.root, wrap=tk.WORD,bg="#131314",fg="white", width=80, height=20)
-        self.log_text.pack(pady=10)
-
-        #Attributes for real-time protection
-        self.real_time_protection = False
-        self.quarantined_files = []
-
-    #Simulate AI threat detection (integrate AI model)
-    def ai_threat_detection(self):
-        time.sleep(2)
-        return random.choice([True, False])
-
-    #Simulate AI-based threat detection 
-    def behavior_analysis(self, file):
-        #Simulate behavior analysis 
-        time.sleep(2)
-        return random.choice([True, False])
-
-    #Simulate scanning operation
-    def start_scan(self):
-        self.log_text.insert(tk.END, "Starting scan...\n")
-        self.ai_status_label.config(text="AI Status: Scanning...")
-        # Simulate scanning files
-        for i in range(5):
-            self.log_text.insert(tk.END, f"Scanning file {i+1}...\n")
-            if self.ai_threat_detection():
-                self.log_text.insert(tk.END, f"Threat detected in file {i+1}!\n")
-                self.quarantined_files.append(f"file_{i+1}.exe")
-            time.sleep(1)
-        self.log_text.insert(tk.END, "Scan complete.\n")
-        self.ai_status_label.config(text="AI Status: Idle")
-
-    #Simulate updating virus definitions
-    def update_virus_definitions(self):
-        self.log_text.insert(tk.END, "Updating virus definitions from AI-based threat intelligence...\n")
-        self.ai_status_label.config(text="AI Status: Updating...")
-        time.sleep(2)
-        self.log_text.insert(tk.END, "Virus definitions updated.\n")
-        self.ai_status_label.config(text="AI Status: Idle")
-
-    #Toggle real-time protection
-    def toggle_real_time_protection(self):
-        if self.real_time_protection:
-            self.real_time_protection = False
-            self.log_text.insert(tk.END, "Real-time protection disabled.\n")
-            self.ai_status_label.config(text="AI Status: Idle")
-        else:
-            self.real_time_protection = True
-            self.log_text.insert(tk.END, "Real-time protection enabled.\n")
-            self.ai_status_label.config(text="AI Status: Monitoring files...")
-            threading.Thread(target=self.real_time_protection_logic).start()
-
-    def real_time_protection_logic(self):
-        while self.real_time_protection:
-            # Simulate monitoring a file access
-            file_access = f"file_{random.randint(1, 10)}.exe"
-            self.log_text.insert(tk.END, f"Monitoring {file_access}...\n")
-            if self.behavior_analysis(file_access):
-                self.log_text.insert(tk.END, f"Threat detected in {file_access}!\n")
-                self.quarantined_files.append(file_access)
-            time.sleep(3)
-        self.ai_status_label.config(text="AI Status: Idle")
-
-    #Display quarantined files
-    def quarantine_files(self):
-        if not self.quarantined_files:
-            self.log_text.insert(tk.END, "No files in quarantine.\n")
-        else:
-            self.log_text.insert(tk.END, "Quarantined files:\n")
-            for file in self.quarantined_files:
-                self.log_text.insert(tk.END, f"- {file}\n")
-            # Placeholder: Add options to restore or delete quarantined files
-
-    def open_settings(self):
-        self.log_text.insert(tk.END, "Opening settings...\n")
-        # Placeholder for settings window logic
-
-    def show_about(self):
-        messagebox.showinfo("About", "AI-Powered Antivirus Software\nVersion 1.0\nUsing advanced AI techniques to detect and prevent threats.")
+        var = BooleanVar(value=default_state)
+        cb = Checkbutton(self.master.winfo_children()[1], variable=var, 
+                        bg=backgroundColor, activebackground=backgroundColor,
+                        selectcolor=backgroundColor, fg=active_color)
+        cb.grid(row=row, column=1, rowspan=2, sticky="e")
 
 image_frame = ImageTk.PhotoImage(Image.open("1x/Panel.png"))
 main_frame = tk.Frame(root,bg="black")
@@ -257,59 +136,38 @@ main_frame.configure(width=275,height=720)
 label = Label(main_frame, image= image_frame, borderwidth=0)
 label.pack()
 
-#Name of the Program
 nameAnti = Label(root, text="GuardianX", font=('Century Gothic',30,"bold"), bg=backgroundColor, fg=active_color, pady=0, padx=0)
 nameAnti.place(relx=0.02, rely=0.08)
 desAnti = Label(root, text="Prototype", font=('Century Gothic',13), bg=backgroundColor, fg="#5A5A5B", pady=0, padx=0)
 desAnti.place(relx=0.02, rely=0.155)
 
-#Navigation Buttons
+
 buttonsMain = ["button_monitoring","button_security","button_update","button_task","button_license","button_firewall","button_AI","button_AIAppControl","button_AIDeviceSecurity","button_AIOptions","Protection_history"]
 
 buttonsMain[0] = Button(root, text="Monitoring", font=("Lucida Sans",12, "bold"), fg=active_color, bg= backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(0))
 buttonsMain[0].place(relx=0.07, rely=0.4)
 
-# buttonsMain[1] = Button(root, text="Security", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda : nextPage(1))
-# buttonsMain[1].place(relx=0.075, rely=0.45)
-
-# buttonsMain[2] = Button(root, text="Update", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(2))
-# buttonsMain[2].place(relx=0.075, rely=0.50)
-
-# buttonsMain[3] = Button(root, text="Tasks", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(3))
-# buttonsMain[3].place(relx=0.078, rely=0.55)
-
 buttonsMain[4] = Button(root, text="License", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(4))
-buttonsMain[4].place(relx=0.07, rely=0.595)
+buttonsMain[4].place(relx=0.07, rely=0.45)
 
 buttonsMain[5] = Button(root, text="FireWall", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(5))
-buttonsMain[5].place(relx=0.07, rely=0.645)
+buttonsMain[5].place(relx=0.07, rely=0.5)
 
 buttonsMain[6] = Button(root, text="Scanning", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(6))
-buttonsMain[6].place(relx=0.07, rely=0.695)
+buttonsMain[6].place(relx=0.07, rely=0.55)
 
 buttonsMain[7] = Button(root, text="Threat Detection", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(7))
-buttonsMain[7].place(relx=0.07, rely=0.74)
+buttonsMain[7].place(relx=0.07, rely=0.6)
 
 buttonsMain[8] = Button(root, text="Data Security", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(8))
-buttonsMain[8].place(relx=0.07, rely=0.785)
+buttonsMain[8].place(relx=0.07, rely=0.65)
 
 buttonsMain[9] = Button(root, text="Parental Control", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(9))
-buttonsMain[9].place(relx=0.07, rely=0.83)
+buttonsMain[9].place(relx=0.07, rely=0.7)
 
 buttonsMain[10] = Button(root, text="Quarantine", font=("Lucida Sans",12), fg=not_active_color, bg= backgroundColor, activebackground= backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(10))
-buttonsMain[10].place(relx=0.07, rely=0.875)
+buttonsMain[10].place(relx=0.07, rely=0.75)
 
-# buttonsMain[0].bind("<Enter>", lambda event, i=0: hoverMenuButtons(event, i))
-# buttonsMain[0].bind("<Leave>", lambda event, i=0: leaveMenuButtons(event, i))
-
-# buttonsMain[1].bind("<Enter>", lambda event, i=1: hoverMenuButtons(event, i))
-# buttonsMain[1].bind("<Leave>", lambda event, i=1: leaveMenuButtons(event, i))
-
-# buttonsMain[2].bind("<Enter>", lambda event, i=2: hoverMenuButtons(event, i))
-# buttonsMain[2].bind("<Leave>", lambda event, i=2: leaveMenuButtons(event, i))
-
-# buttonsMain[3].bind("<Enter>", lambda event, i=3: hoverMenuButtons(event, i))
-# buttonsMain[3].bind("<Leave>", lambda event, i=3: leaveMenuButtons(event, i))
 
 buttonsMain[4].bind("<Enter>", lambda event, i=4: hoverMenuButtons(event, i))
 buttonsMain[4].bind("<Leave>", lambda event, i=4: leaveMenuButtons(event, i))

@@ -13,10 +13,9 @@ from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import shutil
 
-#Initialize page variable
+
 thisPage = 11
 
-#Create the main application window
 root = Tk()
 root.title("GuardianX Prototype > Protection_History")
 root.geometry("1270x720")
@@ -34,14 +33,13 @@ box_background = "#26262C"
 def hoverMenuButtons(event,i):
     global buttonsMain
     # All buttons left aligned at relx=0.07
-    relys = [0.4, 0.45, 0.50, 0.55, 0.595, 0.645, 0.695, 0.74, 0.785, 0.83, 0.875]
+    relys = [0.4, 0.45, 0.50, 0.55, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
     buttonsMain[i].config(font=("Lucida Sans",16,"bold"),bg=backgroundColor, fg="#DEDEE0", activeforeground="#5A5A5B")
     buttonsMain[i].place(relx=0.07, rely=relys[i])
 
 def leaveMenuButtons(event, i):
     global buttonsMain
-    # All buttons left aligned at relx=0.07
-    relys = [0.4, 0.45, 0.50, 0.55, 0.595, 0.645, 0.695, 0.74, 0.785, 0.83, 0.875]
+    relys = [0.4, 0.45, 0.50, 0.55, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
     if i == 0:
         buttonsMain[i].config(font=("Lucida Sans", 12), fg=not_active_color, bg=backgroundColor)
     elif i == 5:
@@ -207,7 +205,6 @@ class AntivirusApp:
 
     def sign_in_with_microsoft(self):
         if not self.is_signed_in:
-            # Simulating Microsoft Sign-In process
             sign_in_window = tk.Toplevel(self.root)
             sign_in_window.title("Sign In with Microsoft")
             sign_in_window.geometry("300x200")
@@ -310,13 +307,12 @@ main_frame.configure(width=275,height=720)
 label = Label(main_frame, image= image_frame, borderwidth=0)
 label.pack()
 
-#Name of the Program
+
 nameAnti = Label(root, text="GuardianX", font=('Century Gothic',30,"bold"), bg=backgroundColor, fg=active_color, pady=0, padx=0)
 nameAnti.place(relx=0.02, rely=0.08)
 desAnti = Label(root, text="Prototype", font=('Century Gothic',13), bg=backgroundColor, fg="#5A5A5B", pady=0, padx=0)
 desAnti.place(relx=0.02, rely=0.155)
 
-# Navigation Buttons
 buttonsMain = [
     "button_monitoring",      # 0
     "button_security",        # 1
@@ -344,25 +340,25 @@ buttonsMain[0].place(relx=0.07,  rely=0.40)
 # buttonsMain[3].place(relx=0.07, rely=0.55)
 
 buttonsMain[4] = Button(root, text="License",           font=("Lucida Sans",12), fg=not_active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(4))
-buttonsMain[4].place(relx=0.07, rely=0.595)
+buttonsMain[4].place(relx=0.07, rely=0.45)
 
 buttonsMain[5] = Button(root, text="FireWall",          font=("Lucida Sans",12), fg=not_active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(5))
-buttonsMain[5].place(relx=0.07, rely=0.645)
+buttonsMain[5].place(relx=0.07, rely=0.5)
 
 buttonsMain[6] = Button(root, text="Scanning",          font=("Lucida Sans",12), fg=not_active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(6))
-buttonsMain[6].place(relx=0.07, rely=0.695)
+buttonsMain[6].place(relx=0.07, rely=0.55)
 
 buttonsMain[7] = Button(root, text="Threat Detection",  font=("Lucida Sans",12), fg=not_active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(7))
-buttonsMain[7].place(relx=0.07, rely=0.74)
+buttonsMain[7].place(relx=0.07, rely=0.6)
 
 buttonsMain[8] = Button(root, text="Data Security",     font=("Lucida Sans",12), fg=not_active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(8))
-buttonsMain[8].place(relx=0.07, rely=0.785)
+buttonsMain[8].place(relx=0.07, rely=0.65)
 
 buttonsMain[9] = Button(root, text="Parental Control",  font=("Lucida Sans",12), fg=not_active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(9))
-buttonsMain[9].place(relx=0.07, rely=0.83)
+buttonsMain[9].place(relx=0.07, rely=0.7)
 
-buttonsMain[10] = Button(root, text="Quarantine",       font=("Lucida Sans",12), fg=not_active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(10))
-buttonsMain[10].place(relx=0.07, rely=0.875)
+buttonsMain[10] = Button(root, text="Quarantine",       font=("Lucida Sans",12), fg=active_color, bg=backgroundColor, activebackground=backgroundColor, highlightthickness=0, borderwidth=0, command=lambda: nextPage(10))
+buttonsMain[10].place(relx=0.07, rely=0.75)
 
 
 buttonsMain[0].bind("<Enter>", lambda event, i=0: hoverMenuButtons(event, i))

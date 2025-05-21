@@ -1,2 +1,0 @@
-2024-11-26 23:49:06 - Scan Scheduled: Scan scheduled at 00:00
-2024-11-26 23:49:21 - Settings Updated: {'Block PUA': 1, 'Block Malware': 1, 'Block Ransomware': 0, 'Auto-Updates': 0, 'Advanced Detection': 0}
